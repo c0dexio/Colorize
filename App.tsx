@@ -78,9 +78,9 @@ const App: React.FC = () => {
 
   if (state === AppState.LOADING) {
     return (
-      <div className="h-[100dvh] w-full bg-blue-100 flex flex-col items-center justify-center p-8">
+      <div className="h-screen w-full bg-blue-100 flex flex-col items-center justify-center p-8">
         <div className="w-16 h-16 md:w-24 md:h-24 border-8 border-blue-500 border-t-transparent rounded-full animate-spin mb-8"></div>
-        <h2 className="text-2xl md:text-4xl text-blue-600 animate-pulse text-center font-bold">
+        <h2 className="text-2xl md:text-4xl font-bold text-blue-600 animate-pulse text-center">
           Création de ton coloriage...
         </h2>
       </div>
@@ -88,10 +88,10 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="h-[100dvh] w-full flex flex-col landscape:flex-row sm:flex-row bg-yellow-50 overflow-hidden relative p-1 sm:p-4 gap-1 sm:gap-4">
+    <div className="h-screen w-full flex flex-col landscape:flex-row bg-yellow-50 overflow-hidden relative p-2 md:p-4 gap-2 md:gap-4">
       {/* Overlay pour suggérer le mode paysage si l'écran est trop étroit verticalement */}
-      <div className="fixed inset-0 z-[60] bg-blue-600 flex flex-col items-center justify-center p-8 text-white text-center sm:hidden portrait:flex lg:hidden">
-        <i className="fas fa-mobile-alt text-6xl mb-6 animate-bounce rotate-90"></i>
+      <div className="fixed inset-0 z-[60] bg-blue-600 flex flex-col items-center justify-center p-8 text-white text-center sm:hidden portrait:flex">
+        <i className="fas fa-mobile-alt text-6xl mb-6 animate-bounce" style={{ transform: 'rotate(90deg)' }}></i>
         <h2 className="text-2xl font-bold mb-2">Tourne ton téléphone !</h2>
         <p>Le coloriage est bien plus amusant en mode paysage.</p>
       </div>
@@ -106,8 +106,8 @@ const App: React.FC = () => {
         />
       )}
 
-      {/* Toolbox: À gauche en mode paysage (mobile ou PC) */}
-      <div className="flex flex-row landscape:flex-col sm:flex-col justify-center items-center z-20 flex-shrink-0">
+      {/* Toolbox: À gauche en mode paysage */}
+      <div className="flex flex-row landscape:flex-col justify-center items-center z-20 flex-shrink-0">
         <Toolbox 
           currentTool={currentTool} 
           onSelectTool={setCurrentTool} 
@@ -118,8 +118,8 @@ const App: React.FC = () => {
         />
       </div>
 
-      {/* Zone de dessin: Doit avoir min-w-0 pour ne pas pousser les flex-items hors de l'écran */}
-      <div className="flex-1 min-w-0 min-h-0 flex flex-col relative z-10">
+      {/* Zone de dessin: Doit avoir min-w-0 pour empêcher le débordement horizontal */}
+      <div className="flex-1 min-w-0 flex flex-col relative z-10">
         <DrawingArea 
           backgroundImage={backgroundImage}
           color={currentColor}
@@ -129,8 +129,8 @@ const App: React.FC = () => {
         />
       </div>
 
-      {/* Palette: À droite en mode paysage (mobile ou PC) */}
-      <div className="flex flex-row landscape:flex-col sm:flex-col justify-center items-center z-20 flex-shrink-0">
+      {/* Palette: À droite en mode paysage */}
+      <div className="flex flex-row landscape:flex-col justify-center items-center z-20 flex-shrink-0">
         <Palette 
           currentColor={currentColor} 
           onSelectColor={(color) => {

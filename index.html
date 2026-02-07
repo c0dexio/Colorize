@@ -13,9 +13,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3067/3067451.png">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- CSS standard - Utilisation de JSDelivr pour éviter les problèmes CORS des scripts JIT -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
@@ -28,23 +30,19 @@
         h1, h2, h3 {
             font-family: 'Fredoka One', cursive;
         }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
         .no-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
+        }
+        @media (orientation: landscape) {
+            .landscape\:flex-row { flex-direction: row !important; }
+            .landscape\:flex-col { flex-direction: column !important; }
+            .landscape\:max-h-\[80vh\] { max-height: 80vh !important; }
+            .landscape\:overflow-y-auto { overflow-y: auto !important; }
+            .landscape\:block { display: block !important; }
         }
     </style>
 <script type="importmap">
@@ -62,9 +60,11 @@
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js')
-                .then(reg => console.log('Service Worker enregistré !', reg))
-                .catch(err => console.log('Erreur Service Worker', err));
+            // Utilisation d'un chemin relatif pur pour que le navigateur gère la résolution
+            // par rapport à l'URL actuelle, que ce soit sur GitHub Pages ou en local.
+            navigator.serviceWorker.register('sw.js')
+                .then(reg => console.log('Service Worker enregistré avec succès ! Portée:', reg.scope))
+                .catch(err => console.error('Échec de l\'enregistrement du Service Worker:', err));
         });
     }
 </script>
