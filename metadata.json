@@ -1,0 +1,5 @@
+{
+  "name": "Coloriage Magique IA",
+  "description": "Une application de coloriage interactive pour enfants utilisant l'IA pour générer des dessins uniques à colorier.",
+  "requestFramePermissions": []
+}
